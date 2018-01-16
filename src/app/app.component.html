@@ -1,20 +1,100 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div [class.m2app-dark]="isDarkTheme">
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="side" class="app-sidenav">
+      <div class="text-menu">LOGO</div>
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <i class="material-icons">build</i>Item 1</mat-list-item>
+        <mat-list-item role="listitem">
+          <i class="material-icons">description</i>Item 2</mat-list-item>
+        <mat-list-item role="listitem">
+          <i class="material-icons">alarm</i>Item 3</mat-list-item>
+      </mat-list>
+    </mat-sidenav>
 
+    <mat-toolbar color="primary">
+      <button class="app-icon-button" (click)="sidenav.toggle()">
+        <i class="material-icons app-toolbar-menu">menu</i>
+      </button>
+      <h1>Angular Material2 Example App</h1>
+      <span class="app-toolbar-filler"></span>
+      <button mat-button (click)="isDarkTheme = !isDarkTheme">TOGGLE THEME</button>
+    </mat-toolbar>
+
+    <mat-tab-group class="mat-tab-group-container">
+      <mat-tab label="Tab 1">
+        <mat-table #table [dataSource]="dataSource">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+
+        <span class="done" matTooltip="Open dialog">
+          <button mat-fab (click)="openDialog();">
+            <mat-icon>check circle</mat-icon>
+          </button>
+        </span>
+      </mat-tab>
+      <mat-tab label="Tab 2">
+        <mat-card>
+          <button mat-button>All</button>
+          <button mat-raised-button>Of</button>
+          <button mat-raised-button color="primary">The</button>
+          <button mat-raised-button color="accent">Buttons</button>
+        </mat-card>
+        <button mat-fab color="warn">Error</button>
+        <mat-slide-toggle>Slide me!</mat-slide-toggle>
+        <mat-spinner></mat-spinner>
+        <mat-card>
+          <mat-card-title>Simple card title
+            <mat-icon>home</mat-icon>
+          </mat-card-title>
+          <mat-card-content>
+            <span matTooltip="Tooltip!">I have a tooltip</span>
+          </mat-card-content>
+        </mat-card>
+        <button mat-menu-item>
+          <mat-icon> notifications_off </mat-icon>
+          <span> Disable alerts menu item </span>
+        </button>
+        <mat-card>
+          <mat-chip-list>
+            <mat-chip>List of values</mat-chip>
+            <mat-chip color="warn" selected="true">as individual</mat-chip>
+            <mat-chip color="primary" selected="true">keyboard accessible</mat-chip>
+            <mat-chip color="accent" selected="true">chips
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-container>
+</div>
